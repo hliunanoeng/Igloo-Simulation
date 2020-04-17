@@ -1,0 +1,25 @@
+This document aims to provide the user with a step-by-step guide on how to run simulations in FEniCS.
+
+1. Install Python 2.7 distribution (As of today, Neuron is only supported in Python 2.7, which will reach the end of its life 2020. It is expected a Neuron update that is compatible with Python 3 will be released before that)
+2. Download Neuron and pip install LFPy at: https://neuron.yale.edu/neuron/download
+                                            https://lfpy.readthedocs.io/en/latest/information.html
+Neuron provides intuitive UI for building a single neuron or a network, which can be imported into a Python script and manipulated using LFPy module.
+Note: many users have had buggy experience with nrn for MacOS, thus the Windows version is highly recommended.
+3. Build or download an existing Neuron model and mechanism
+4. Compile the model using mknrndll from the Neuron software folder
+5. Write a Python script that outputs the desired time, position and magnitude of the axon current as readable files (eg. .npy)
+6. Download Gmsh and install Dolfin at: http://gmsh.info/
+                                        https://fenicsproject.org/docs/dolfin/dev/python/installation.html
+Gmsh provides intuitive UI for building 2D/3D mesh structures with pre-defined boundary conditions.
+Dolfin serves as an interface between Python and classic C# FEniCS solver library.
+Note: The simplest way of installing Dolfin is through Anaconda on a Mac (or Ubuntu)
+7. Build the .geo mesh file in Gmsh (Do not save as .msh file from the UI)
+8. Run gmsh -3 your_geo_file_name.geo -format msh2 from command line(As of today, Gmsh has updated its mesh format to msh4, which cannot be converted to .xml for import, hence the .geo file for now must adopt the old msh2 format.)
+9. Run dolfin-convert your_msh_file_name.msh your_xml_file_name.xml from the Anaconda Navigator FEniCS project environment. You should be able to see three files upon completion: yourfile_facet_region.xml, yourfile_physical_region.xml and yourfile.xml
+10. Script in Python to solve PDEs and visualize results.
+
+Note: for complex meshes, we recommend completing the models in other professional modeling software such as AutoCAD and Maya, then import them into Gmsh to mark boundary facets.
+
+If you have further questions, please refer to the code samples, tutorial folders or contact me at hliunanoeng@gmail.com.
+
+Han, 06 06 2019.

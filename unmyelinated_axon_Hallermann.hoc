@@ -1,0 +1,74 @@
+proc celldef() {
+  topol()
+  subsets()
+  geom()
+  biophys()
+  geom_nseg()
+}
+
+create axon[1]
+
+
+proc topol() { local i
+  basic_shape()
+}
+proc basic_shape() {
+  axon[0] {pt3dclear()
+  pt3dadd(-100, 0, 0, 0.5) pt3dadd(100, 0, 0, 0.5)}
+}
+
+objref all
+proc subsets() { local i
+  objref all
+  all = new SectionList()
+    axon all.append()
+
+}
+proc geom() {
+}
+proc geom_nseg() {
+}
+proc biophys() {
+}
+
+celldef()
+
+forall {
+	celsius = 33
+	Ri = 80
+	Cm = 1.0
+	Rm = 15000
+	v_init = -85
+    insert pas
+    Ra=Ri
+    e_pas=v_init
+    g_pas=1/Rm
+    cm=Cm
+
+    Kv1_collat	=	400
+    na_collat	=	500
+
+    insert nax gbar_nax = na_collat
+    insert Kv1 gbar_Kv1 = Kv1_collat
+	ena=55
+	ek=-98
+
+    vShift_na		=	10 // affecting activation and inactivation
+    vShift_inact_na		=	10 // affects only inactivation
+    q10_na			=	3
+    q10h_na			=	3
+
+    vShift_nax		=	10
+    vShift_inact_nax	=	10
+    q10_nax			=	3.0
+    q10h_nax		=	3.0
+
+    length_constant_Kv_and_Kv1	=	80	//length constant of the exponential decay in um of Kv and Kv1
+
+    insert ih
+    gh_ih=-0.0002
+    eh_ih=-45
+
+    gbar_ih=0.0005
+    insert charge_
+}
